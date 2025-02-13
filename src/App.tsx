@@ -14,12 +14,7 @@ export const App = () => {
     { id: 2, title: "JS", isDone: true },
     { id: 3, title: "Redux", isDone: false }
   ]
-  const task2: Task[] = [
-    { id: 1, title: "World of WarCraft", isDone: false },
-    { id: 2, title: "Half Life 2", isDone: true },
-    { id: 3, title: "Dota 2", isDone: true },
-    { id: 4, title: "Far Cry", isDone: true }
-  ]
+  const task2: Task[] = []
 
   return (
     <>
