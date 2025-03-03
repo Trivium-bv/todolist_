@@ -1,21 +1,35 @@
 import {FilterValues, Task} from './App'
 import {Button} from './Button'
+import {useState} from 'react';
 
 type Props = {
     title: string
     tasks: Task[]
     date?: string
-    deleteTask: (taskId: number) => void
-    changeFilter: (filter:FilterValues) => void
+    deleteTask: (taskId: string) => void
+    changeFilter: (filter: FilterValues) => void
+    createTask: (taskTitle: string) => void
 }
 
-export const TodolistItem = ({title, tasks, date, deleteTask, changeFilter}: Props) => {
+export const TodolistItem = ({title, tasks, date, deleteTask, changeFilter, createTask}: Props) => {
+    const [taskTitle, setTaskTitle] = useState('')
+
+    const createTaskHandler = () => {
+        createTask(taskTitle)
+        setTaskTitle('')
+    }
     return (
         <div>
             <h3>{title}</h3>
             <div>
-                <input/>
-                <Button title={'+'} onClick={() => {}}/>
+                <input value={taskTitle}
+                       onChange={event => setTaskTitle(event.currentTarget.value)}
+                       onKeyDown={event => {
+                           if (event.key === 'Enter') {
+                               createTaskHandler()
+                           }
+                       }}/>
+                <Button title={'+'} onClick={createTaskHandler}/>
             </div>
             {tasks.length === 0 ? (
                 <p>Тасок нет</p>
@@ -26,7 +40,7 @@ export const TodolistItem = ({title, tasks, date, deleteTask, changeFilter}: Pro
                             <li key={task.id}>
                                 <input type="checkbox" checked={task.isDone}/>
                                 <span>{task.title}</span>
-                                <Button title={'x'} onClick={() => deleteTask(task.id)} />
+                                <Button title={'x'} onClick={() => deleteTask(task.id)}/>
                             </li>
                         )
                     })}
