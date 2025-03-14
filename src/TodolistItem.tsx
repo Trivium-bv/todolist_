@@ -26,6 +26,11 @@ export const TodolistItem = ({title, tasks, date, deleteTask, changeFilter, crea
             createTaskHandler()
         }
     }
+    const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        const newStatusValue = e.currentTarget.checked
+        changeTaskStatus(task.id, newStatusValue)
+    }
+
     return (
         <div>
             <h3>{title}</h3>
@@ -45,7 +50,7 @@ export const TodolistItem = ({title, tasks, date, deleteTask, changeFilter, crea
                         }
                         return (
                             <li key={task.id}>
-                                <input type="checkbox" defaultChecked={task.isDone}/>
+                                <input type="checkbox" checked={task.isDone} onChange={changeTaskStatusHandler}/>
                                 <span>{task.title}</span>
                                 <Button title={'x'} onClick={deleteTaskHandler}/>
                             </li>
